@@ -12,6 +12,7 @@ import {
   Clock,
   PieChart,
   Route,
+  Briefcase,
 } from "lucide-react";
 import destParis from "@/assets/dest-paris.jpg";
 
@@ -158,7 +159,7 @@ const TripDetail = () => {
           <h2 className="font-display text-2xl font-semibold text-foreground mb-4">
             Trip Management
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Itinerary Builder */}
             <Link
               to={`/trips/${id}/itinerary`}
@@ -213,6 +214,25 @@ const TripDetail = () => {
               </p>
               <span className="text-palm text-sm font-medium">
                 View budget →
+              </span>
+            </Link>
+
+            {/* Packing List */}
+            <Link
+              to={`/trips/${id}/packing`}
+              className="group bg-card rounded-2xl border border-border p-6 shadow-sm hover:shadow-lg hover:border-sky/30 transition-all"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky to-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <Briefcase className="w-7 h-7 text-primary-foreground" />
+              </div>
+              <h3 className="font-display text-xl font-semibold text-foreground mb-2 group-hover:text-sky transition-colors">
+                Packing List
+              </h3>
+              <p className="text-muted-foreground text-sm mb-4">
+                Create and check off items needed for each destination.
+              </p>
+              <span className="text-sky text-sm font-medium">
+                View packing list →
               </span>
             </Link>
           </div>
