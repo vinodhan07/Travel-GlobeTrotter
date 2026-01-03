@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Map, { Marker, Popup, NavigationControl } from "react-map-gl/mapbox";
+import Map, { Marker, Popup, NavigationControl } from "react-map-gl";
 import Header from "@/components/layout/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";

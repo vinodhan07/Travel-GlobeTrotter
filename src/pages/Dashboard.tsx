@@ -42,7 +42,7 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">
           {/* Welcome Section */}
@@ -58,7 +58,7 @@ const Dashboard = () => {
             <Link to="/trips/create">
               <Button variant="ocean" size="lg" className="gap-2">
                 <Plus className="w-5 h-5" />
-                Create New Trip
+                Add Trips
               </Button>
             </Link>
           </div>
@@ -111,11 +111,10 @@ const Dashboard = () => {
                         <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
                           {trip.name}
                         </h3>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          trip.status === "upcoming" 
-                            ? "bg-palm/10 text-palm" 
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${trip.status === "upcoming"
+                            ? "bg-palm/10 text-palm"
                             : "bg-accent/10 text-accent"
-                        }`}>
+                          }`}>
                           {trip.status === "upcoming" ? "Upcoming" : "Planning"}
                         </span>
                       </div>

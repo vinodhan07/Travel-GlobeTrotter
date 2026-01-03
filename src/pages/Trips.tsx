@@ -69,7 +69,7 @@ const Trips = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">
           {/* Header */}
@@ -85,7 +85,7 @@ const Trips = () => {
             <Link to="/trips/create">
               <Button variant="ocean" size="lg" className="gap-2">
                 <Plus className="w-5 h-5" />
-                Create New Trip
+                Add Trips
               </Button>
             </Link>
           </div>
@@ -100,11 +100,10 @@ const Trips = () => {
               <button
                 key={option.value}
                 onClick={() => setFilter(option.value as any)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  filter === option.value
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${filter === option.value
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted text-muted-foreground hover:bg-muted/80"
-                }`}
+                  }`}
               >
                 {option.label}
               </button>
@@ -126,11 +125,10 @@ const Trips = () => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-3 right-3">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      trip.status === "upcoming" 
-                        ? "bg-palm text-primary-foreground" 
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${trip.status === "upcoming"
+                        ? "bg-palm text-primary-foreground"
                         : "bg-accent text-accent-foreground"
-                    }`}>
+                      }`}>
                       {trip.status === "upcoming" ? "Upcoming" : "Planning"}
                     </span>
                   </div>

@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Calendar, MapPin, ArrowLeft, ImagePlus } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 
 const CreateTrip = () => {
   const navigate = useNavigate();
@@ -17,17 +19,47 @@ const CreateTrip = () => {
     endDate: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false);
+  const { user } = useAuth(); // Assume useAuth hook is available
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Create trip:", formData);
-    // Navigate to itinerary builder
-    navigate("/trips/1/itinerary");
+    if (!user) {
+      alert("Please sign in to create a trip.");
+      return;
+    }
+    setLoading(true);
+
+    try {
+      const { data, error } = await supabase
+        .from('trips')
+        .insert({
+          user_id: user.id,
+          name: formData.name,
+          start_date: formData.startDate,
+          end_date: formData.endDate,
+          // description is not in the schema, we might need to add it or ignore it for now.
+          // schema has: id, user_id, name, start_date, end_date, budget_limit, created_at
+          budget_limit: 0 // Default or form field?
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      navigate(`/trips/${data.id}/itinerary`);
+    } catch (error) {
+      console.error("Error creating trip:", error);
+      alert("Failed to create trip. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
