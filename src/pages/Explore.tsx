@@ -78,13 +78,26 @@ const CITY_COORDINATES: Record<string, [number, number]> = {
   "Chennai": [13.0827, 80.2707],
 };
 
-const DEFAULT_IMAGES = [
-  "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800", // Paris
-  "https://images.unsplash.com/photo-1499856871940-a09627c6dcf6?w=800", // Louvre
-  "https://images.unsplash.com/photo-1550340499-a6c6030e6953?w=800", // Vintage
-  "https://images.unsplash.com/photo-1509439649568-d0554157d6e4?w=800", // City
-  "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800", // London
-  "https://images.unsplash.com/photo-1503899036084-c55cdd920a26?w=800", // Tokyo
+const CITY_IMAGES: Record<string, string> = {
+  "Paris": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800",
+  "Eiffel Tower": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800",
+  "Louvre Museum": "https://images.unsplash.com/photo-1565099824688-e9d640f5d3bf?w=800",
+  "London": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800",
+  "New York": "https://images.unsplash.com/photo-1496442226666-8d4a0e94f389?w=800",
+  "Tokyo": "https://images.unsplash.com/photo-1503899036084-c55cdd920a26?w=800",
+  "Rome": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800",
+  "Barcelona": "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=800",
+  "Sydney": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=800",
+  "Dubai": "https://images.unsplash.com/photo-1512453979798-5ea904ac6605?w=800",
+  "Santorini": "https://images.unsplash.com/photo-1613395877344-13d4c79e42d1?w=800",
+  "Bali": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800",
+  "Rio de Janeiro": "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800",
+};
+
+const FALLBACK_IMAGES = [
+  "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800", // Generic Travel
+  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800", // Beach
+  "https://images.unsplash.com/photo-1519999482648-25049ddd37b1?w=800", // Mountains
 ];
 
 interface LocationItem {
@@ -111,7 +124,7 @@ const MOCK_RECOMMENDATIONS: LocationItem[] = [
     is_visited: false,
     cost: 35,
     rating: 4.8,
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800",
+    image: CITY_IMAGES["Eiffel Tower"],
     type: "recommendation"
   },
   {
@@ -123,7 +136,7 @@ const MOCK_RECOMMENDATIONS: LocationItem[] = [
     is_visited: true,
     cost: 22,
     rating: 4.9,
-    image: "https://images.unsplash.com/photo-1499856871940-a09627c6dcf6?w=800",
+    image: CITY_IMAGES["Louvre Museum"], // Fixed broken image
     type: "recommendation"
   },
 ];
@@ -147,8 +160,16 @@ const getCoordinates = (name: string): [number, number] => {
 
 const getImage = (coverImage: string | null, name: string): string => {
   if (coverImage) return coverImage;
+
+  // check known cities
+  for (const city in CITY_IMAGES) {
+    if (name.toLowerCase().includes(city.toLowerCase())) {
+      return CITY_IMAGES[city];
+    }
+  }
+
   // Return deterministic default image based on name length
-  return DEFAULT_IMAGES[name.length % DEFAULT_IMAGES.length];
+  return FALLBACK_IMAGES[name.length % FALLBACK_IMAGES.length];
 };
 
 // Component to handle map view updates
