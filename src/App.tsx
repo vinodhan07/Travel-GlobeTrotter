@@ -14,6 +14,7 @@ import TripBudget from "./pages/TripBudget";
 import TripTimeline from "./pages/TripTimeline";
 import TripShare from "./pages/TripShare";
 import ItineraryBuilder from "./pages/ItineraryBuilder";
+import PackingList from "./pages/PackingList";
 import TripDetail from "./pages/TripDetail";
 import NotFound from "./pages/NotFound";
 
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/trips/:id/timeline" element={<TripTimeline />} />
           <Route path="/trips/:id/share" element={<TripShare />} />
           <Route path="/trips/:id/itinerary" element={<ItineraryBuilder />} />
+          <Route path="/trips/:id/packing" element={<PackingList />} />
           <Route path="/explore" element={<Explore />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
